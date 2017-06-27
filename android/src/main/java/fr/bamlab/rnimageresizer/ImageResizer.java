@@ -24,6 +24,9 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Date;
 
+import com.sonyericsson.util.ScalingUtilities;
+import com.sonyericsson.util.ScalingUtilities.ScalingLogic;
+
 /**
  * Provide methods to resize and rotate an image file.
  */
@@ -50,7 +53,7 @@ class ImageResizer {
 
             int finalWidth = (int) (width * ratio);
             int finalHeight = (int) (height * ratio);
-            newImage = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+            newImage = ScalingUtilities.createScaledBitmap(image, finalWidth, finalHeight, ScalingLogic.FIT);
         }
 
         return newImage;
@@ -230,6 +233,7 @@ class ImageResizer {
         options.inJustDecodeBounds = false;
         System.out.println(options.inSampleSize);
         return loadBitmap(context, imagePath, options);
+        // return ScalingUtilities.decodeFile(imagePath, newWidth, newHeight, ScalingLogic.FIT)
 
     }
 
